@@ -4,6 +4,7 @@ import com.domain.api.annotation.APIAsHeader;
 import com.domain.api.core.APIConstant;
 import com.domain.api.core.AbstractAPIBaseObject;
 import com.domain.api.core.IAPIRunner;
+import com.domain.api.utils.CommonUtil;
 import com.domain.api.utils.GlobalSettings;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
@@ -78,6 +79,8 @@ public class RestAPIGetRunner implements IAPIRunner {
             }
 
             //设置抓包
+            CommonUtil.detectAndSetProxy(client);
+
             HttpResponse resp = client.execute(post);
 
             if (resp.getStatusLine().getStatusCode()== HttpStatus.SC_OK) {

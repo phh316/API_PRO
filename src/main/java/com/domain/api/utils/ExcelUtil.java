@@ -81,7 +81,7 @@ public class ExcelUtil {
 
     /**
      * 静态数据
-     * @param path
+     * @param sheetName
      * @param sheetName
      * @return
      * @throws IOException
@@ -90,15 +90,15 @@ public class ExcelUtil {
         Object[][] result = null;
         Workbook workbook = null;
         try{
-                File files = new File(obj.getClass().getResource(obj.getClass().getSimpleName() + ".xlsx").getPath());
-                File file = new File(files.getCanonicalPath());
-                FileInputStream inputStream = new FileInputStream(file);
-                String fileExtensName = files.getCanonicalPath().substring(files.getCanonicalPath().indexOf("."));
-                if (fileExtensName.equals(".xlsx")){
-                    workbook = new XSSFWorkbook(inputStream);
-                }else if (fileExtensName.equals(".xls")){
-                    workbook = new HSSFWorkbook(inputStream);
-                }
+            File files = new File(obj.getClass().getResource(GlobalSettings.getProperty("dir.path")).getPath());
+            File file = new File(files.getCanonicalPath());
+            FileInputStream inputStream = new FileInputStream(file);
+            String fileExtensName = files.getCanonicalPath().substring(files.getCanonicalPath().indexOf("."));
+            if (fileExtensName.equals(".xlsx")){
+                workbook = new XSSFWorkbook(inputStream);
+            }else if (fileExtensName.equals(".xls")){
+                workbook = new HSSFWorkbook(inputStream);
+            }
             Sheet sheet = workbook.getSheet(sheetName);
             int rowCount = sheet.getLastRowNum()-sheet.getFirstRowNum();
             List<Object[]> records = new ArrayList<Object[]>();
@@ -113,7 +113,7 @@ public class ExcelUtil {
                     records.add(fields);
                 }
             }
-             result = new Object[records.size()][];
+            result = new Object[records.size()][];
             List list = new ArrayList();
             for (int i = 0; i < records.size(); i++) {
                 result[i] = records.get(i);

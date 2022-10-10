@@ -31,16 +31,10 @@ public class HttpGetRunner implements IAPIRunner {
             method = new GetMethod(obj.getUrl());
             client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
             client.getParams().setContentCharset(obj.getCharSet());
-//            System.out.println(CommonUtil.getQueryString(obj));
-//            String str = "age=登录001&disname=peihaohao2021";
-//            String smsg =  URLDecoder.decode(str,"UTF-8");
             method.setQueryString(CommonUtil.getQueryString(obj));
-//               method.setQueryString(smsg);
-//            method.setQueryString(EncodingUtil.formUrlEncode(meta_list, "UTF-8"));
-//            method.addRequestHeader("Content-type" , "text/html; charset=UTF-8");
-//            System.out.println(CommonUtil.getQueryString(obj));
+            // 设置抓包
+            CommonUtil.detectAndSetProxy(client);
             client.executeMethod(method);
-            System.out.println(method.getStatusCode());
             if(method.getStatusCode() == HttpStatus.SC_OK){
                 //获取cookie信息
                 Cookie[] cookies = client.getState().getCookies();

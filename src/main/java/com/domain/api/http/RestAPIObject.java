@@ -30,8 +30,8 @@ public abstract class RestAPIObject extends AbstractAPIBaseObject {
         this.setRequestFileds();
         Log.info("获取到的uri:"+ this.getUrl());
         String response =  APIRunnerFactory.getFectory().getInstance(this.getType(),this.getMethod()).run(this);
-        String result = JSON.toJSONString(JSONObject.parseObject(response), SerializerFeature.PrettyFormat,SerializerFeature.WriteMapNullValue,
-        SerializerFeature.WriteDateUseDateFormat);
+        System.out.println(response);
+        String result = JSON.toJSONString(JSONObject.parseObject(response), SerializerFeature.PrettyFormat,SerializerFeature.WriteMapNullValue, SerializerFeature.WriteDateUseDateFormat);
         Log.info("接口返回报文如下：\r\n"+ result);
         this.setResponseFields(response);
         return processResponse(response);

@@ -22,8 +22,9 @@ public abstract class HttpObject extends AbstractAPIBaseObject {
         this.setRequestFileds();
         Log.info("获取到的uri:"+ this.getUrl());
         String response =  APIRunnerFactory.getFectory().getInstance(this.getType(),this.getMethod()).run(this);
-        Log.info("接口返回报文如下：\r\n"+ response);
-        Log.info("cookies：\r\n"+ this.getCookie());
+        if(Boolean.parseBoolean(GlobalSettings.getProperty("log.info"))) {
+            Log.info("接口返回报文如下：\r\n" + response);
+        }
         this.setResponseFields(response);
         return processResponse(response);
     }
@@ -37,7 +38,7 @@ public abstract class HttpObject extends AbstractAPIBaseObject {
 
     @Override
     public String getUrl() {
-        return GlobalSettings.getProperty("HttpUrl")+getSendUri();
+        return GlobalSettings.getProperty("http.url")+getSendUri();
     }
 
     public  abstract String getCharSet();

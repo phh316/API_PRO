@@ -5,6 +5,10 @@ import com.domain.api.core.APIConstant;
 import com.domain.api.core.AbstractAPIBaseObject;
 import info.monitorenter.cpdetector.io.CodepageDetectorProxy;
 import info.monitorenter.cpdetector.io.ParsingDetector;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.http.HttpHost;
+import org.apache.http.conn.params.ConnRouteParams;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.*;
 import java.lang.reflect.Field;
@@ -146,6 +150,7 @@ public class CommonUtil {
         if ("".equals(querystr)){
             return querystr;
         }else {
+            Log.info(querystr.substring(0,querystr.length()-1));
             return querystr.substring(0,querystr.length()-1);
         }
     }
@@ -206,4 +211,37 @@ public class CommonUtil {
         return msg.startsWith("[")&&msg.endsWith("]")?msg.substring(1,msg.length()-1):msg;
     }
 
+    /**
+     * 设置代理，方便fillder抓包
+     * @param client
+     */
+    public static void detectAndSetProxy(DefaultHttpClient client){
+
+        String open = GlobalSettings.getProperty("http.proxy.open");
+        if (open.equals("true")){
+            String ip = GlobalSettings.getProperty("http.proxy.ip");
+            int port = Integer.parseInt(GlobalSettings.getProperty("http.proxy.port"));
+            Log.info("proxy_ip: "+ip+" proxy_port" + port);
+            HttpHost pro = new HttpHost(ip,port);
+            client.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY,pro);
+            return;
+        }
+        Log.info("proxy关闭");
+        return;
+    }
+
+    /**
+     * 设置代理，方便fillder抓包
+     * @param client
+     */
+    public static void detectAndSetProxy(HttpClient client) {
+
+        String open = GlobalSettings.getProperty("http.proxy.open");
+        if (open.equals("true")) {
+            String ip = GlobalSettings.getProperty("http.proxy.ip");
+            int port = Integer.parseInt(GlobalSettings.getProperty("http.proxy.port"));
+            Log.info("proxy_ip: " + ip + " proxy_port:" + port);
+            client.getHostConfiguration().setProxy(ip, port);
+        }
+    }
 }

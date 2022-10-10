@@ -1,5 +1,7 @@
 package com.domain.api.utils;
 
+import org.testng.annotations.Test;
+
 import java.io.*;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -38,6 +40,12 @@ public class GlobalSettings {
             }
         }
         return value;
+    }
+
+    @Test
+    public void test(){
+        String str = GlobalSettings.getProperty("proxy.port");
+        System.out.println(str);
     }
 
 }

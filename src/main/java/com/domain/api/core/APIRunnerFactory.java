@@ -1,6 +1,7 @@
 package com.domain.api.core;
 
 import com.domain.api.method.HttpGetRunner;
+import com.domain.api.method.RestAPIPostRunner;
 import com.domain.api.method.RestAPIPutRunner;
 
 /**
@@ -21,7 +22,7 @@ public class APIRunnerFactory {
     public IAPIRunner getInstance(String type,String method){
         if(APIConstant.API_TYPE_HTTP.equals(type)){
             if (APIConstant.API_METHOD_POST.equals(method)) {
-                return new HttpGetRunner();
+                return new RestAPIPostRunner();
             }else if(APIConstant.API_METHOD_GET.equals(method)){
                 return new HttpGetRunner();
             }else if(APIConstant.API_METHOD_PUT.equals(method)){

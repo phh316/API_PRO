@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Default Suite">
+  <test name="AutoApi">
+    <classes>
+      <class name="com.domain.test.A018253681Case">
+        <methods>
+          <include name="test001"/>
+        </methods>
+      </class> <!-- com.agree.domian.script.LoginCase -->
+    </classes>
+  </test>
+  <listeners>
+    <listener class-name="com.domain.api.utils.ReporterListener"/>
+  </listeners>
+</suite> <!-- Default Suite -->
