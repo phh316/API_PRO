@@ -2,7 +2,8 @@ package com.domain.entity;
 
 import com.domain.api.annotation.APIAsHeader;
 import com.domain.api.annotation.APIAsInPut;
-import com.domain.api.annotation.JsonAsOutPut;
+import com.domain.api.annotation.XmlAsInPut;
+import com.domain.api.annotation.XmlAsOutPut;
 import com.domain.api.core.APIConstant;
 import com.domain.api.http.RestAPIObject;
 
@@ -10,10 +11,10 @@ import com.domain.api.http.RestAPIObject;
 /**
  * Created by pei hao on 2021/9/1.
  */
-public class A018253682 extends RestAPIObject {
+public class A018253683 extends RestAPIObject {
 
-    @APIAsHeader(name = "test")
-    public String test = "9898787787";
+    @APIAsHeader(name = "head")
+    public String head;
 
     @APIAsInPut(name = "id",desc = "用户id",fromFie = false)
     public String id;
@@ -24,12 +25,19 @@ public class A018253682 extends RestAPIObject {
     @APIAsInPut(name = "age",desc = "用户年龄",fromFie = false)
     public String age;
 
-    @JsonAsOutPut(jsonPath = "$.data.person[0].name")
-    public String rpname;
+    @XmlAsInPut(name = "title1",desc = "用户年龄",xpath = "/rss/channel/item[2]/title1" )
+    public String title1;
+
+//    @JsonAsOutPut(jsonPath = "$.data.person[0].name")
+//    public String rpname;
+
+    @XmlAsOutPut(name = "title",xpath = "/channel/item/transnum")
+    public int title;
+
 
     @Override
     public String getReturnType() {
-        return APIConstant.API_RESPONSE_JSON;
+        return APIConstant.API_RESPONSE_XML;
     }
 
     @Override
@@ -44,6 +52,6 @@ public class A018253682 extends RestAPIObject {
 
     @Override
     public String getSendUri() {
-        return "/api/postjson";
+        return "/api/postxml";
     }
 }

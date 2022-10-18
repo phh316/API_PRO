@@ -9,24 +9,27 @@ import com.domain.api.utils.Log;
 /**
  * Created by pei hao on 2021/9/1.
  */
-public abstract class HttpObject extends AbstractAPIBaseObject {
+public abstract class HttpAPIObject extends AbstractAPIBaseObject {
     /**
      * 构造方法
      */
-    public HttpObject() {
+    public HttpAPIObject() {
         super();
     }
 
     @Override
     public String run() {
         this.setRequestFileds();
-        Log.info("获取到的uri:"+ this.getUrl());
-        String response =  APIRunnerFactory.getFectory().getInstance(this.getType(),this.getMethod()).run(this);
-        if(Boolean.parseBoolean(GlobalSettings.getProperty("log.info"))) {
-            Log.info("接口返回报文如下：\r\n" + response);
+        Log.info("获取到的uri:" + this.getUrl());
+        String response = APIRunnerFactory.getFectory().getInstance(this.getType(), this.getMethod()).run(this);
+        if (!response.equals("_FAILURE")) {
+            this.setResponseFields(response);
+            if (Boolean.parseBoolean(GlobalSettings.getProperty("resplog.info"))) {
+                Log.info("接口返回报文如下：" + response);
+                return processResponse(response);
+            }
         }
-        this.setResponseFields(response);
-        return processResponse(response);
+        return APIConstant.API_TRANSCODE_FAILED;
     }
     public String processResponse(String response){
         return response;

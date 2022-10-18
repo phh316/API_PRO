@@ -4,11 +4,14 @@ import com.domain.api.annotation.APIAsHeader;
 import com.domain.api.core.APIConstant;
 import com.domain.api.core.AbstractAPIBaseObject;
 import com.domain.api.core.IAPIRunner;
+import com.domain.api.utils.CommonUtil;
 import com.domain.api.utils.GlobalSettings;
+import com.domain.api.utils.Log;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
@@ -65,6 +68,9 @@ public class RestAPIPostRunner implements IAPIRunner {
             if (APIConstant.API_RESPONSE_XML.equals(obj.getInputType())){
                 entity.setContentType("application/xml;charset=UTF-8;");
             }
+
+            post.setEntity(entity);
+
             Field[] allHeaders = obj.getFieldsByAnno(APIAsHeader.class);
             for (Field f:allHeaders) {
                 f.setAccessible(true);
@@ -72,24 +78,32 @@ public class RestAPIPostRunner implements IAPIRunner {
                 String para = f.getName();
                 if (!"".equals(asheader.name())) {
                     para = asheader.name();
-                    post.setHeader(para,f.get(obj)==null?"":f.get(obj).toString());
+                    if(f.get(obj)!=null&&!equals("")){
+                        post.setHeader(para,f.get(obj).toString());
+                        Log.info("http头参数:[" +para+ " = "+ f.get(obj).toString()+" ]");
+                    }
                 }
-                log.info("HTTP头参数:[" +para+ " = "+ f.get(obj).toString());
+                Log.error("http头参数:[" +para+ " = "+ null +" ]");
+                break;
             }
 
             //设置抓包
+            CommonUtil.detectAndSetProxy(client);
             HttpResponse resp = client.execute(post);
-
             if (resp.getStatusLine().getStatusCode()== HttpStatus.SC_OK) {
                 msg = EntityUtils.toString(resp.getEntity());
             }else{
                 log.error("接口返回状态异常，状态吗:"+ resp.getStatusLine().getStatusCode());
                 log.error("接口返回信息:"+ EntityUtils.toString(resp.getEntity()));
             }
+
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
         }catch (IllegalAccessException e){
             e.printStackTrace();
+        }catch (HttpHostConnectException e){
+            Log.error("连接失败");
+            return APIConstant.API_TRANSCODE_FAILED;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -12,7 +12,10 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by pei hao on 2021/8/26.
@@ -43,7 +46,16 @@ public class HttpGetRunner implements IAPIRunner {
                     tempCookies.append(c.toString()+";");
                 }
                 obj.setCookie(tempCookies.toString());
-                msg = method.getResponseBodyAsString();
+                //日志中有warn警告,换成getResponseBodyAsStream（）
+                //msg = method.getResponseBodyAsStream();
+                InputStream inputStream = method.getResponseBodyAsStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuffer stringBuffer = new StringBuffer();
+                String str = "";
+                while ((str = br.readLine()) != null) {
+                    stringBuffer.append(str);
+                }
+                msg = stringBuffer.toString();
             }else{
                 log.error("接口返回状态异常，状态吗:"+ method.getStatusCode());
                 log.error("接口返回信息:"+ method.getResponseBodyAsString());

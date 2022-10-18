@@ -150,7 +150,7 @@ public class CommonUtil {
         if ("".equals(querystr)){
             return querystr;
         }else {
-            Log.info(querystr.substring(0,querystr.length()-1));
+            Log.info("请求参数为：["+querystr.substring(0,querystr.length()-1)+" ]");
             return querystr.substring(0,querystr.length()-1);
         }
     }
@@ -221,7 +221,7 @@ public class CommonUtil {
         if (open.equals("true")){
             String ip = GlobalSettings.getProperty("http.proxy.ip");
             int port = Integer.parseInt(GlobalSettings.getProperty("http.proxy.port"));
-            Log.info("proxy_ip: "+ip+" proxy_port" + port);
+            Log.info("proxy_ip: "+ip+" proxy_port:" + port);
             HttpHost pro = new HttpHost(ip,port);
             client.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY,pro);
             return;

@@ -1,31 +1,30 @@
 package com.domain.entity;
 
-import com.domain.api.annotation.APIAsHeader;
-import com.domain.api.annotation.APIAsInPut;
+import com.domain.api.annotation.APIAsQueryString;
 import com.domain.api.annotation.JsonAsOutPut;
 import com.domain.api.core.APIConstant;
-import com.domain.api.http.HttpObject;
+import com.domain.api.http.HttpAPIObject;
 
 
 /**
  * Created by pei hao on 2021/9/1.
  */
-public class A018253681 extends HttpObject {
+public class A018253681 extends HttpAPIObject {
 
-    @APIAsInPut
-    public String para1;
 
-    @APIAsInPut
-    public String para2;
-
-    @APIAsHeader
-    public String header1;
-
-    @APIAsHeader
-    public String para3;
-
-    @JsonAsOutPut(jsonPath = "$.data.persons[1].name")
+    @APIAsQueryString(name = "name")
     public String name;
+
+    @APIAsQueryString(name = "age")
+    public String age;
+
+    @JsonAsOutPut(jsonPath = "$.data.person[0].name")
+    public String rpname;
+
+    @Override
+    public String getReturnType() {
+        return APIConstant.API_RESPONSE_JSON;
+    }
 
     @Override
     public String getCharSet() {
@@ -33,18 +32,12 @@ public class A018253681 extends HttpObject {
     }
 
     @Override
-    public String getReturnType() {
-        return APIConstant.API_RESPONSE_JSON;
-    }
-
-
-    @Override
     public String getMethod() {
-        return APIConstant.API_METHOD_POST;
+        return APIConstant.API_METHOD_GET;
     }
 
     @Override
     public String getSendUri() {
-        return "mock/db8122608751bfc0a73df8b9e3da74ad/test/api/test";
+        return "/api/get";
     }
 }

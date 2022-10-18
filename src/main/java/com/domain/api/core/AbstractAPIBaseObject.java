@@ -3,19 +3,14 @@ package com.domain.api.core;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.domain.api.annotation.APIAsInPut;
-import com.domain.api.annotation.JsonAsInPut;
-import com.domain.api.annotation.JsonAsOutPut;
-import com.domain.api.annotation.XmlAsInPut;
-import com.domain.api.utils.CommonUtil;
-import com.domain.api.utils.JsonUtil;
-import com.domain.api.utils.Log;
-import com.domain.api.utils.ObjectX;
+import com.domain.api.annotation.*;
+import com.domain.api.utils.*;
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONValue;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
+import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
 import java.io.*;
@@ -93,12 +88,13 @@ public abstract class AbstractAPIBaseObject {
 
 
     public String getRequestStrfromFile() {
-        return requestStrfromFile;
+        return this.requestStrfromFile;
     }
 
     public void setRequestStrfromFile(String requestStrfromFile) {
-        if (requestStrfromFile == null)
+        if (requestStrfromFile == null){
             return;
+        }
         this.requestStrfromFile = requestStrfromFile;
     }
 
@@ -119,7 +115,7 @@ public abstract class AbstractAPIBaseObject {
     }
 
     public Map<String, String> getBodyParameters() {
-        return bodyParameters;
+        return this.bodyParameters;
     }
 
     public void setBodyParameters(Map<String, String> bodyParameters) {
@@ -131,8 +127,7 @@ public abstract class AbstractAPIBaseObject {
      */
     public void loadRequestTemplate() {
         try {
-                String jsonfile = "/".concat(this.getClass().getPackage().getName().replace(".", "/")).concat("/").concat(
-                        this.getClass().getSimpleName() + ".json");
+                String jsonfile = "/".concat(this.getClass().getPackage().getName().replace(".", "/")).concat("/").concat(this.getClass().getSimpleName() + ".json");
                 URL url = this.getClass().getResource(jsonfile);
                 if (url != null) {
                     Log.info("开始加载json模板");
@@ -141,8 +136,7 @@ public abstract class AbstractAPIBaseObject {
                     File jf = new File(jsonuri);
                     loadJson(jf);
                 }
-                String xmlfile = "/".concat(this.getClass().getPackage().getName().replace(".", "/")).concat("/").concat(
-                        this.getClass().getSimpleName() + ".xml");
+                String xmlfile = "/".concat(this.getClass().getPackage().getName().replace(".", "/")).concat("/").concat(this.getClass().getSimpleName() + ".xml");
                 URL xmlurl = this.getClass().getResource(xmlfile);
                 if (xmlurl != null) {
                     Log.info("开始加载xml模板");
@@ -151,9 +145,7 @@ public abstract class AbstractAPIBaseObject {
                     File xf = new File(xmluri);
                     loadXml(xf);
                 }
-                String xlsxfile = "/".concat(this.getClass().getPackage().getName().replace(".", "/")).concat("/").concat(
-                        this.getClass().getSimpleName() + ".xlsx");
-                //System.out.println(xlsxfile);
+                String xlsxfile = "/".concat(this.getClass().getPackage().getName().replace(".", "/")).concat("/").concat(this.getClass().getSimpleName() + ".xlsx");
                 URL xfile = this.getClass().getResource(xlsxfile);
                 out:if (xfile != null) {
                     break out;
@@ -205,6 +197,7 @@ public abstract class AbstractAPIBaseObject {
         Document doc = reader.read(f);
         this.setRequestStrfromFile(doc.asXML());
         Log.info("加载完成");
+
         setFileFields();
     }
 
@@ -310,7 +303,6 @@ public abstract class AbstractAPIBaseObject {
         try {
             bp.load(new InputStreamReader(new FileInputStream(file),"GB2312"));
             this.bodyParameters = (Map)bp;
-            System.out.println(this.bodyParameters );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e){
@@ -363,12 +355,16 @@ public abstract class AbstractAPIBaseObject {
                 Field[] fileds = this.getAllBodyReqFileds(this.getRequestStrfromFile());
                 if (APIConstant.API_RESPONSE_XML.equals(this.getInputType())) {
                     setXmlRequest(this.getRequestStrfromFile());
-                    Log.info("待发送的xml报文为："+ this.getRequestStrfromFile());
+                    if(GlobalSettings.getProperty("requlog.info").equals("true")){
+                        Log.info("待发送的xml报文为："+ this.getRequestStrfromFile());
+                    }
                 }else if (APIConstant.API_RESPONSE_JSON.equals(this.getInputType())) {
                     setJsonRequest(this.getRequestStrfromFile());
                      json = JSON.toJSONString(JSONObject.parseObject(this.getRequestStrfromFile()), SerializerFeature.PrettyFormat,SerializerFeature.WriteMapNullValue,
                             SerializerFeature.WriteDateUseDateFormat);
-                    Log.info("待发送的json报文为：\n"+json);
+                    if(GlobalSettings.getProperty("requlog.info").equals("true")){
+                        Log.info("待发送的json报文为：\n"+json);
+                    }
                 }
                 if (fileds != null) {
                     for (Field f : fileds) {
@@ -397,9 +393,9 @@ public abstract class AbstractAPIBaseObject {
                 String xpath = input.xpath();
                 boolean iscdata = input.isCDATA();
                 if (f.get(this)!=null){
-                    //setXMLElement(doc,xpath,f.get(this),iscdata);
+                    setXMLElement(doc,xpath,f.get(this),iscdata);
                 }else{
-                    //setFieldsByXpath(doc,f,xpath);
+                    setFieldsByXpath(doc,f,xpath);
                 }
 
             }
@@ -420,6 +416,26 @@ public abstract class AbstractAPIBaseObject {
         }
     }
 
+    /**
+     *
+     * @param doc
+     * @param xpath
+     * @param value
+     * @param iscdata
+     */
+    protected void setXMLElement(Document doc,String xpath,Object value,boolean iscdata){
+        ObjectX.setXMLElementByFieldValue(doc,xpath,value,iscdata);
+    }
+
+    private  void setFieldsByXpath(Document doc,Field f,String path){
+        List<Node> list = doc.selectNodes(path);
+        if(list ==  null){
+            return;
+        }
+        ObjectX.setFieldsProperty(f,this,list);
+
+    }
+
     protected void setJsonRequest(String json) {
         if (json == null||json.equals("")) {
             return;
@@ -433,8 +449,7 @@ public abstract class AbstractAPIBaseObject {
                 if (f.get(this)!=null){
                     jsonToSend =  setJsonFromField(jsonToSend,f,jsonpath);
                 }else{
-                    //jsonToSend =  setFieldFromJson(jsonToSend,f,jsonpath);
-                    System.out.println("=================================4444=====================");
+                    setFieldFromJson(jsonToSend,f,jsonpath);
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -457,9 +472,36 @@ public abstract class AbstractAPIBaseObject {
     protected void setResponseFields(String response){
         if (APIConstant.API_RESPONSE_JSON.equals(this.getReturnType())) {
             setOutPutFieldsByJson(response);
+        }else if(APIConstant.API_RESPONSE_XML.equals(this.getReturnType())){
+            setOutPutFieldsByXml(response);
         }
     }
 
+
+    /**
+     *
+     * @param xml
+     */
+    protected void setOutPutFieldsByXml(String xml){
+        Field[] fields = this.getFieldsByAnno(XmlAsOutPut.class);
+        try {
+            Document doc = DocumentHelper.parseText(xml);
+            for (Field f: fields) {
+                f.setAccessible(true);
+                XmlAsOutPut outPut = f.getAnnotation(XmlAsOutPut.class);
+                String path = outPut.xpath();
+                if("".equals(path)){
+                    continue;
+                }else{
+                    setFieldsByXpath(doc,f,path);
+                }
+            }
+        } catch (DocumentException e) {
+                Log.error("解析失败");
+            }
+
+
+    }
     /**
      * 
      * @param json
@@ -490,6 +532,8 @@ public abstract class AbstractAPIBaseObject {
             ObjectX.setFieldsProperty(f,this,map.get(key));
         }
     }
+
+
 
     public abstract String run();
     public abstract String getType();

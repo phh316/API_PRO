@@ -6,6 +6,7 @@ import com.domain.api.core.AbstractAPIBaseObject;
 import com.domain.api.core.IAPIRunner;
 import com.domain.api.utils.CommonUtil;
 import com.domain.api.utils.GlobalSettings;
+import com.domain.api.utils.Log;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -75,7 +76,7 @@ public class RestAPIGetRunner implements IAPIRunner {
                     para = asheader.name();
                     post.setHeader(para,f.get(obj)==null?"":f.get(obj).toString());
                 }
-                log.info("HTTP头参数:[" +para+ " = "+ f.get(obj).toString());
+                Log.info("http头参数:[" +para+ " = "+ f.get(obj).toString());
             }
 
             //设置抓包
@@ -86,8 +87,8 @@ public class RestAPIGetRunner implements IAPIRunner {
             if (resp.getStatusLine().getStatusCode()== HttpStatus.SC_OK) {
                 msg = EntityUtils.toString(resp.getEntity());
             }else{
-                log.error("接口返回状态异常，状态吗:"+ resp.getStatusLine().getStatusCode());
-                log.error("接口返回信息:"+ EntityUtils.toString(resp.getEntity()));
+                Log.error("接口返回状态异常，状态吗:"+ resp.getStatusLine().getStatusCode());
+                Log.error("接口返回信息:"+ EntityUtils.toString(resp.getEntity()));
             }
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();

@@ -1,8 +1,6 @@
 package com.domain.api.core;
 
-import com.domain.api.method.HttpGetRunner;
-import com.domain.api.method.RestAPIPostRunner;
-import com.domain.api.method.RestAPIPutRunner;
+import com.domain.api.method.*;
 
 /**
  * Created by pei hao on 2021/8/13.
@@ -12,23 +10,31 @@ public class APIRunnerFactory {
 
     private static APIRunnerFactory factory = null;
 
-    public static APIRunnerFactory getFectory(){
-        if (factory == null){
+    public static APIRunnerFactory getFectory() {
+        if (factory == null) {
             return new APIRunnerFactory();
         }
         return factory;
     }
 
-    public IAPIRunner getInstance(String type,String method){
-        if(APIConstant.API_TYPE_HTTP.equals(type)){
+    public IAPIRunner getInstance(String type, String method) {
+        if (APIConstant.API_TYPE_HTTP.equals(type)) {
             if (APIConstant.API_METHOD_POST.equals(method)) {
-                return new RestAPIPostRunner();
-            }else if(APIConstant.API_METHOD_GET.equals(method)){
+                return new HttpPostRunner();
+            } else if (APIConstant.API_METHOD_GET.equals(method)) {
                 return new HttpGetRunner();
-            }else if(APIConstant.API_METHOD_PUT.equals(method)){
+            } else if (APIConstant.API_METHOD_PUT.equals(method)) {
+                return new RestAPIPutRunner();
+            }
+        } else if (APIConstant.API_TYPE_RESTAPI.equals(type)) {
+            if (APIConstant.API_METHOD_GET.equals(method)) {
+                return new RestAPIGetRunner();
+            } else if (APIConstant.API_METHOD_POST.equals(method)) {
+                return new RestAPIPostRunner();
+            } else if (APIConstant.API_METHOD_PUT.equals(method)) {
                 return new RestAPIPutRunner();
             }
         }
-      return null;
+        return null;
     }
 }

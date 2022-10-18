@@ -130,9 +130,6 @@ public class JsonUtil {
         }
     }
     public static String setJsonValue(String json,String jsonPath,String newValue){
-        System.out.println(getKeyAndValue(json, jsonPath));
-        System.out.println(getNewValue(jsonPath, newValue));
-        System.out.println(json.replaceAll(getKeyAndValue(json, jsonPath), getNewValue(jsonPath, newValue)));
         return json!=null && !"".equals(json) ? json.replaceAll(getKeyAndValue(json,jsonPath),getNewValue(jsonPath,newValue)):"";
     }
     private static String getNewValue(String jsonpath, String newValue){

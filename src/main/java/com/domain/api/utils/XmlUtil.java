@@ -1,6 +1,10 @@
 package com.domain.api.utils;
 
+import org.dom4j.Branch;
 import org.dom4j.Element;
+import org.dom4j.Node;
+
+import java.util.Iterator;
 
 /**
  * Created by pei hao on 2021/9/1.
@@ -52,5 +56,34 @@ public class XmlUtil {
         return "";
     }
 
+    /**
+     * 校验XmlAsInput输入
+     * @param xpath
+     * @return
+     */
+    public static boolean isAttribute(String xpath){
+        if(xpath.indexOf("/")<0){
+            return false;
+        }
+        String str = xpath.substring(xpath.lastIndexOf("/")+1,xpath.length());
+        return str.startsWith("@")?true:false;
+    }
+
+    /**
+     *
+     * @param node
+     * @return
+     */
+    public static boolean isCDATA(Node node){
+        if(!node.hasContent()){
+            return false;
+        }
+        Iterator iterator = ((Branch) node).content().iterator();
+        Node next = (Node)iterator.next();
+        if(Node.CDATA_SECTION_NODE==next.getNodeType()){
+            return true;
+        }
+        return false;
+    }
 
 }

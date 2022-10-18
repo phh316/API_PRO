@@ -24,12 +24,25 @@ public class A018253681Case {
         return result;
     }
 
-    @Test(dataProvider ="ExcelData")
+    @Test(dataProvider ="ExcelData",enabled = false)
     public void test001(String id, String caseName, String loginName, String loginPwd,
                         String keyword1, String keyword2,String keyword3)throws Exception{
         A018253681 a01825368= new A018253681();
+        a01825368.name="测试";
+        a01825368.age="11";
+        a01825368.run();
+        Assert.assertEquals(a01825368.rpname,"qqqq1");
+    }
+
+
+    @Test
+    public void get()throws Exception{
+        A018253681 a01825368= new A018253681();
+        a01825368.name="测试";
+        a01825368.age="11";
         a01825368.run();
         Assert.assertEquals(a01825368.rpname,"qqqq");
     }
+
 
 }

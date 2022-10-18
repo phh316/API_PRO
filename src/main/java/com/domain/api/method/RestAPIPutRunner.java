@@ -5,6 +5,7 @@ import com.domain.api.core.APIConstant;
 import com.domain.api.core.AbstractAPIBaseObject;
 import com.domain.api.core.IAPIRunner;
 import com.domain.api.utils.GlobalSettings;
+import com.domain.api.utils.Log;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -74,7 +75,7 @@ public class RestAPIPutRunner implements IAPIRunner {
                     para = asheader.name();
                     post.setHeader(para,f.get(obj)==null?"":f.get(obj).toString());
                 }
-                log.info("HTTP头参数:[" +para+ " = "+ f.get(obj).toString());
+                Log.info("http头参数:[" +para+ " = "+ f.get(obj).toString());
             }
 
             //设置抓包
