@@ -37,7 +37,7 @@ public class A018253681Case {
 
     @Test
     public void get()throws Exception{
-        A018253681 a01825368= new A018253681();
+        A018253681 a01825368 = new A018253681();
         a01825368.name="测试";
         a01825368.age="11";
         a01825368.run();

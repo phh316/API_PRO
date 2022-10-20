@@ -5,7 +5,7 @@
     <classes>
       <class name="com.domain.test.A018253681Case">
         <methods>
-          <include name="test001"/>
+          <include name="get"/>
         </methods>
       </class> <!-- com.agree.domian.script.LoginCase -->
     </classes>
