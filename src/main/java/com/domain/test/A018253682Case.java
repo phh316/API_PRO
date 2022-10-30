@@ -1,7 +1,11 @@
 package com.domain.test;
 
+import com.domain.api.utils.ExcelUtil;
+import com.domain.api.utils.Log;
 import com.domain.entity.A018253682;
 import org.testng.Assert;
+import org.testng.TestNGException;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
@@ -9,24 +13,24 @@ import org.testng.annotations.Test;
  */
 public class A018253682Case {
 //
-//    @DataProvider(name = "ExcelData")
-//    public  Object[][] getData(){
-//        Object[][] result = null;
-//        try {
-//            result = ExcelUtil.getExcelData(new A018253682(),"A018253681");
-//        }catch (TestNGException e){
-//            Log.error("获取数据失败");
-//        }
-//        return result;
-//    }
-//
-//    @Test(dataProvider ="ExcelData")
-//    public void testpost(String id, String caseName, String loginName, String loginPwd,
-//                        String keyword1, String keyword2,String keyword3)throws Exception{
-//        A018253682 a01825368= new A018253682();
-//        a01825368.run();
-//        Assert.assertEquals(a01825368.rpname,"qqqq");
-//    }
+    @DataProvider(name = "ExcelData")
+    public  Object[][] getData(){
+        Object[][] result = null;
+        try {
+            result = ExcelUtil.getExcelData(new A018253682(),"A018253681");
+        }catch (TestNGException e){
+            Log.error("获取数据失败");
+        }
+        return result;
+    }
+
+    @Test(dataProvider ="ExcelData")
+    public void testpost(String id, String caseName, String loginName, String loginPwd,
+                        String keyword1, String keyword2,String keyword3)throws Exception{
+        A018253682 a01825368= new A018253682();
+        a01825368.run();
+        Assert.assertEquals(a01825368.rpname,"qqqq");
+    }
 
     @Test(enabled = false)
     public void testpost()throws Exception{
