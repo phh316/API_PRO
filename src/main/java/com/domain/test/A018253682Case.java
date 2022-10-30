@@ -56,5 +56,17 @@ public class A018253682Case {
         Assert.assertEquals(a018253682.rpname,"qqqq");
     }
 
+    @Test
+    public void json2()throws Exception{
+        A018253682 a018253682 = new A018253682();
+        a018253682.run();
+        Assert.assertEquals(a018253682.rpname,"qqqq");
+    }
+    @Test
+    public void json3()throws Exception{
+        A018253682 a018253682 = new A018253682();
+        a018253682.run();
+        Assert.assertEquals(a018253682.rpname,"qqqq");
+    }
 
 }
