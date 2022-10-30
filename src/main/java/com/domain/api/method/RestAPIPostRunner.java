@@ -57,6 +57,7 @@ public class RestAPIPostRunner implements IAPIRunner {
             if (GlobalSettings.getProperty("connectionTimeOut")!= null){
                 this.setConnectionTimeOut(Integer.valueOf(GlobalSettings.getProperty("connectionTimeOut")));
             }
+
             if (GlobalSettings.getProperty("readTimeOut")!= null){
                 this.setConnectionTimeOut(Integer.valueOf(GlobalSettings.getProperty("readTimeOut")));
             }
