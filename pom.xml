@@ -59,9 +59,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.58</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache/httpclient -->
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
