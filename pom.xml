@@ -8,6 +8,8 @@
     <artifactId>api</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
+
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
@@ -100,6 +102,34 @@
             <artifactId>slf4j-nop</artifactId>
             <version>1.6.1</version>
         </dependency>
+        <dependency>
+            <groupId>other</groupId>
+            <artifactId>antlr</artifactId>
+            <version>2.7.4</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/ext/antlr-2.7.4.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>other</groupId>
+            <artifactId>chardet</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/ext/chardet-1.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>other</groupId>
+            <artifactId>cpdetector</artifactId>
+            <version>1.0.10</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/ext/cpdetector_1.0.10.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>other</groupId>
+            <artifactId>jargs</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/ext/jargs-1.0.jar</systemPath>
+        </dependency>
     </dependencies>
         <build>
             <plugins>
@@ -107,10 +137,23 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                    </configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
                 </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <configuration>
+                            <forkMode>once</forkMode>
+                            <argLine>-Dfile.encoding=UTF-8</argLine>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/main/resources/testng.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
             </plugins>
             <resources>
                 <resource>

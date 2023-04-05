@@ -47,6 +47,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="antlr-2.7.4" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:6.9.10" level="project" />
     <orderEntry type="library" name="Maven: com.beust:jcommander:1.48" level="project" />
     <orderEntry type="library" name="Maven: org.beanshell:bsh:2.0b4" level="project" />
@@ -85,5 +86,41 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpmime:4.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.27-incubating" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-nop:1.6.1" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: other:antlr:2.7.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ext/antlr-2.7.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: other:chardet:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ext/chardet-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: other:cpdetector:1.0.10">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ext/cpdetector_1.0.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: other:jargs:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ext/jargs-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
