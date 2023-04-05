@@ -152,6 +152,7 @@
                         </configuration>
                     </plugin>
             </plugins>
+            <!--测试-->
             <resources>
                 <resource>
                     <directory>src/main/java</directory>
