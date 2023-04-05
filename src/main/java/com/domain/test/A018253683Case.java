@@ -14,6 +14,7 @@ public class A018253683Case {
         A018253683 a018253683 = new A018253683();
         a018253683.title1="2wqw";
         a018253683.run();
+        //测试
         Assert.assertEquals(a018253683.title,200);
     }
 
