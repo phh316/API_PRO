@@ -4,13 +4,14 @@ import com.domain.api.annotation.APIAsHeader;
 import com.domain.api.annotation.APIAsInPut;
 import com.domain.api.annotation.JsonAsOutPut;
 import com.domain.api.core.APIConstant;
+import com.domain.api.http.HttpAPIObject;
 import com.domain.api.http.RestAPIObject;
 
 
 /**
  * Created by pei hao on 2021/9/1.
  */
-public class A018253682 extends RestAPIObject {
+public class A018253682 extends HttpAPIObject{
 
     @APIAsHeader(name = "test")
     public String test = "9898787787";
@@ -44,6 +45,6 @@ public class A018253682 extends RestAPIObject {
 
     @Override
     public String getSendUri() {
-        return "/api/postjson";
+        return "/db8122608751bfc0a73df8b9e3da74ad/test/api/postjson";
     }
 }

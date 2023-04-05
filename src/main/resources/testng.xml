@@ -3,9 +3,9 @@
 <suite name="Default Suite">
   <test name="AutoApi">
     <classes>
-      <class name="com.domain.test.A018253681Case">
+      <class name="com.domain.test.A018253682Case">
         <methods>
-          <include name="get"/>
+          <include name="testpost"/>
         </methods>
       </class> <!-- com.agree.domian.script.LoginCase -->
     </classes>

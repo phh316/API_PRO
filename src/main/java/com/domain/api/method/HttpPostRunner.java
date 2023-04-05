@@ -111,8 +111,6 @@ public class HttpPostRunner implements IAPIRunner {
                     if(value!=null&&!value.equals("")){
                         method.addParameter(para,value);
                         Log.info("接口类定义上送的参数:[ " +para+ " = "+ f.get(obj).toString()+"]");
-                    }else{
-                        Log.error("接口类定义上送的参数:[ " +para+ " = "+value+"]");
                     }
                 }
             }
