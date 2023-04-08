@@ -191,7 +191,7 @@ public abstract class AbstractAPIBaseObject {
      * @param f
      */
     private void loadXml(File f) throws DocumentException {
-        Log.info("加载xml文件 :"+f);
+        Log.info("加载xml文件 :"+f.getName());
         SAXReader reader = new SAXReader();
         reader.setEncoding(detectCharSet(f));
         Document doc = reader.read(f);

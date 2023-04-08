@@ -1,4 +1,4 @@
-<rss version="2.0">
+<req version="2.0">
     <channel>
         <title>request</title>
         <link>http://www.ckxx.info/</link>
@@ -17,4 +17,4 @@
             <link>http://www.ckxx.info/other1/201111/7-55583.html</link>
         </item>
     </channel>
-</rss>
+</req>

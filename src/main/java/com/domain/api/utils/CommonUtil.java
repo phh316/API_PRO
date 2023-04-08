@@ -29,7 +29,7 @@ public class CommonUtil {
      * @return
      */
     public static String detectCharSet(File f){
-        Log.info("获取文件格式: "+f.getName());
+        Log.info("获取文件格式: "+f.getName().substring(f.getName().indexOf(".")+1,f.getName().length()));
         CodepageDetectorProxy detector = CodepageDetectorProxy.getInstance();
         detector.add(new ParsingDetector(false));
         Charset charset = null;
@@ -226,7 +226,6 @@ public class CommonUtil {
             client.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY,pro);
             return;
         }
-        Log.info("proxy关闭");
         return;
     }
 

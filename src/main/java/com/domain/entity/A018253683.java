@@ -25,15 +25,8 @@ public class A018253683 extends RestAPIObject {
     @APIAsInPut(name = "age",desc = "用户年龄",fromFie = false)
     public String age;
 
-    @XmlAsInPut(name = "title1",desc = "用户年龄",xpath = "/rss/channel/item[2]/title1" )
+    @XmlAsOutPut(name = "title1",desc = "用户年龄",xpath = "/rss/channel/item[2]/title1" )
     public String title1;
-
-//    @JsonAsOutPut(jsonPath = "$.data.person[0].name")
-//    public String rpname;
-
-    @XmlAsOutPut(name = "title",xpath = "/channel/item/transnum")
-    public int title;
-
 
     @Override
     public String getReturnType() {

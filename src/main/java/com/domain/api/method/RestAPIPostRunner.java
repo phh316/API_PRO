@@ -84,7 +84,6 @@ public class RestAPIPostRunner implements IAPIRunner {
                         Log.info("http头参数:[" +para+ " = "+ f.get(obj).toString()+" ]");
                     }
                 }
-                Log.error("http头参数:[" +para+ " = "+ null +" ]");
                 break;
             }
 

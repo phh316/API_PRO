@@ -32,7 +32,7 @@ public class A018253682Case {
         Assert.assertEquals(a01825368.rpname,"qqqq");
     }
 //
-//    @Test(enabled = false)
+//    @Test1116(enabled = false)
 //    public void testpost()throws Exception{
 //        A018253682 a018253682 = new A018253682();
 //        a018253682.id = "用户名称";
@@ -42,27 +42,27 @@ public class A018253682Case {
 //        Assert.assertEquals(a018253682.rpname,"qqqq");
 //    }
 //
-//    @Test
+//    @Test1116
 //    public void json()throws Exception{
 //        A018253682 a018253682 = new A018253682();
 //        a018253682.run();
 //        Assert.assertEquals(a018253682.rpname,"qqqq");
 //    }
 //
-//    @Test
+//    @Test1116
 //    public void json1()throws Exception{
 //        A018253682 a018253682 = new A018253682();
 //        a018253682.run();
 //        Assert.assertEquals(a018253682.rpname,"qqqq");
 //    }
 //
-//    @Test
+//    @Test1116
 //    public void json2()throws Exception{
 //        A018253682 a018253682 = new A018253682();
 //        a018253682.run();
 //        Assert.assertEquals(a018253682.rpname,"qqqq");
 //    }
-//    @Test
+//    @Test1116
 //    public void json3()throws Exception{
 //        A018253682 a018253682 = new A018253682();
 //        a018253682.run();

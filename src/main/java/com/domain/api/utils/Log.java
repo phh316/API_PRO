@@ -17,7 +17,7 @@ public class Log {
         log.info("-----------------------------------------------------------------------------");
     }
     public static void info(String message){
-        log.info("******************* "+message+" *******************");
+            log.info("******************* "+message+" *******************");
     }
     public static void warn(String message){
         log.warn(message);

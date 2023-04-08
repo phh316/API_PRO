@@ -1,5 +1,7 @@
 package com.domain.test;
 
+import com.domain.api.utils.GlobalSettings;
+import com.domain.api.utils.Log;
 import com.domain.entity.A018253683;
 import org.testng.Assert;
 import org.testng.annotations.Test;

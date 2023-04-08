@@ -180,7 +180,7 @@ public class ReporterListener implements IReporter {
                     test.log(status, result.getThrowable());
                 }
                 else {
-                    test.log(status, "Test " + status.toString().toLowerCase() + "ed");
+                    test.log(status, "Test1116 " + status.toString().toLowerCase() + "ed");
                 }
 
                 test.getModel().setStartTime(getTime(result.getStartMillis()));
