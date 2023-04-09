@@ -5,16 +5,17 @@ import com.domain.api.annotation.APIAsInPut;
 import com.domain.api.annotation.XmlAsInPut;
 import com.domain.api.annotation.XmlAsOutPut;
 import com.domain.api.core.APIConstant;
+import com.domain.api.http.HttpAPIObject;
 import com.domain.api.http.RestAPIObject;
 
 
 /**
  * Created by pei hao on 2021/9/1.
  */
-public class A018253683 extends RestAPIObject {
+public class A018253683 extends HttpAPIObject {
 
     @APIAsHeader(name = "head")
-    public String head;
+    public String head ;
 
     @APIAsInPut(name = "id",desc = "用户id",fromFie = false)
     public String id;
@@ -25,8 +26,9 @@ public class A018253683 extends RestAPIObject {
     @APIAsInPut(name = "age",desc = "用户年龄",fromFie = false)
     public String age;
 
-    @XmlAsOutPut(name = "title1",desc = "用户年龄",xpath = "/rss/channel/item[2]/title1" )
-    public String title1;
+    //xmllist没有下标
+    @XmlAsOutPut(name = "transnum",desc = "交易码",xpath = "/channel/item[2]/transnum" )
+    public int transnum;
 
     @Override
     public String getReturnType() {
@@ -41,6 +43,11 @@ public class A018253683 extends RestAPIObject {
     @Override
     public String getMethod() {
         return APIConstant.API_METHOD_POST;
+    }
+
+    @Override
+    public String getInputType() {
+        return APIConstant.API_Input_Type_XML;
     }
 
     @Override

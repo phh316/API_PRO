@@ -29,7 +29,7 @@ public abstract class RestAPIObject extends AbstractAPIBaseObject {
     public String run() {
         String result = null;
         this.setRequestFileds();
-        Log.info("获取到的uri:"+ this.getUrl());
+        Log.info("获取到的url: \t" + this.getUrl());
         String response = APIRunnerFactory.getFectory().getInstance(this.getType(), this.getMethod()).run(this);
         if(!response.equals("_FAILURE")){
             this.setResponseFields(response);
@@ -38,7 +38,7 @@ public abstract class RestAPIObject extends AbstractAPIBaseObject {
                     result = JSON.toJSONString(JSONObject.parseObject(response), SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteDateUseDateFormat);
                     Log.info("json返回报文：" + result );
                 }else{
-                    Log.info("返回报文：" + response );
+                    Log.info("返回报文：\n" + response );
                 }
             }
         }
@@ -51,7 +51,7 @@ public abstract class RestAPIObject extends AbstractAPIBaseObject {
 
     @Override
     public String getUrl() {
-        return GlobalSettings.getProperty("rest.url")+getSendUri();
+        return GlobalSettings.getProperty("http.url")+getSendUri();
     }
 
     @Override

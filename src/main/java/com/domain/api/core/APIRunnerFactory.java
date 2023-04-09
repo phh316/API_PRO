@@ -20,7 +20,7 @@ public class APIRunnerFactory {
     public IAPIRunner getInstance(String type, String method) {
         if (APIConstant.API_TYPE_HTTP.equals(type)) {
             if (APIConstant.API_METHOD_POST.equals(method)) {
-                return new HttpPostRunner();
+                return new HttpAPIPostRunner();
             } else if (APIConstant.API_METHOD_GET.equals(method)) {
                 return new HttpGetRunner();
             } else if (APIConstant.API_METHOD_PUT.equals(method)) {
@@ -30,7 +30,7 @@ public class APIRunnerFactory {
             if (APIConstant.API_METHOD_GET.equals(method)) {
                 return new RestAPIGetRunner();
             } else if (APIConstant.API_METHOD_POST.equals(method)) {
-                return new RestAPIPostRunner();
+                return new HttpAPIPostRunner();
             } else if (APIConstant.API_METHOD_PUT.equals(method)) {
                 return new RestAPIPutRunner();
             }

@@ -9,12 +9,17 @@ public class Log {
     private static final Logger log = Logger.getLogger(Log.class.getName());
 
     public static void startTestCase(String name){
-        log.info("-----------------------------------------------------------------------------");
+        log.info("-------------------------------开始执行---------------------------------------");
         log.info("*******************            "+name+"            *******************");
     }
     public static void endTestCase(String name){
         log.info("*******************            "+"执行结束"+"       *******************");
         log.info("-----------------------------------------------------------------------------");
+    }
+    public static void info(String message,Boolean flag){
+        if (GlobalSettings.getProperty("log.info").equals("true")){
+            log.info("******************* "+message+" *******************");
+        }
     }
     public static void info(String message){
             log.info("******************* "+message+" *******************");

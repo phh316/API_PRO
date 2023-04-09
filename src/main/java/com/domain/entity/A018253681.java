@@ -27,6 +27,11 @@ public class A018253681 extends HttpAPIObject {
     }
 
     @Override
+    public String getInputType() {
+        return APIConstant.API_Input_Type_JSON;
+    }
+
+    @Override
     public String getCharSet() {
         return APIConstant.API_CHARSET_UTF8;
     }

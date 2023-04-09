@@ -20,12 +20,12 @@ public abstract class HttpAPIObject extends AbstractAPIBaseObject {
     @Override
     public String run() {
         this.setRequestFileds();
-        Log.info("获取到的uri:" + this.getUrl());
+        Log.info("配置文件url: \t" + this.getUrl());
         String response = APIRunnerFactory.getFectory().getInstance(this.getType(), this.getMethod()).run(this);
         if (!response.equals("_FAILURE")) {
             this.setResponseFields(response);
             if (Boolean.parseBoolean(GlobalSettings.getProperty("resplog.info"))) {
-                Log.info("接口返回报文如下：" + response);
+                Log.info("接口返回报文如下：\r\n" + response);
                 return processResponse(response);
             }
         }

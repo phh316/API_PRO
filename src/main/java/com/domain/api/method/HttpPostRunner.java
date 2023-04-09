@@ -12,11 +12,14 @@ import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.http.HttpStatus;
+import org.apache.http.entity.StringEntity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
@@ -51,6 +54,7 @@ public class HttpPostRunner implements IAPIRunner {
             super(uri);
         }
     }
+
     @Override //URI和CharSet
     public String run(AbstractAPIBaseObject obj) {
         HttpClient client = null;
@@ -73,6 +77,8 @@ public class HttpPostRunner implements IAPIRunner {
             }
 
             method.setQueryString(CommonUtil.getQueryString(obj));
+//            StringEntity entity = new StringEntity(obj.getRequestStrfromFile(), obj.getCharSet());
+            method.setRequestEntity((RequestEntity)new StringEntity(obj.getRequestStrfromFile(), obj.getCharSet()));
 
             //获取头信息
             Field[] allHeaders = obj.getFieldsByAnno(APIAsHeader.class);
@@ -82,9 +88,10 @@ public class HttpPostRunner implements IAPIRunner {
                 String para = f.getName();
                 if (!"".equals(asheader.name())) {
                     para = asheader.name();
-                    if(f.get(obj)!=null&&!f.get(obj).equals("")){
+                    if(f.get(obj)!=null && !f.get(obj).equals("")){
                         method.addRequestHeader(para,f.get(obj).toString());
                     }
+                    break;
                 }
                 Log.info("http头参数:[" +para+ " = "+ f.get(obj).toString()+"]");
             }

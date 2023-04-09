@@ -106,9 +106,6 @@ public abstract class AbstractAPIBaseObject {
         this.cookie = cookie;
     }
 
-    public String getInputType() {
-        return inputType;
-    }
 
     public void setInputType(String inputType) {
         this.inputType = inputType;
@@ -130,7 +127,8 @@ public abstract class AbstractAPIBaseObject {
                 String jsonfile = "/".concat(this.getClass().getPackage().getName().replace(".", "/")).concat("/").concat(this.getClass().getSimpleName() + ".json");
                 URL url = this.getClass().getResource(jsonfile);
                 if (url != null) {
-                    Log.info("开始加载json模板");
+                    Log.info("开始加载json模板",false);
+                    if(GlobalSettings.getProperty("log.info").equals("t"))
                     this.setInputType(APIConstant.API_RESPONSE_JSON);
                     URI jsonuri = url.toURI();
                     File jf = new File(jsonuri);
@@ -139,7 +137,7 @@ public abstract class AbstractAPIBaseObject {
                 String xmlfile = "/".concat(this.getClass().getPackage().getName().replace(".", "/")).concat("/").concat(this.getClass().getSimpleName() + ".xml");
                 URL xmlurl = this.getClass().getResource(xmlfile);
                 if (xmlurl != null) {
-                    Log.info("开始加载xml模板");
+                    Log.info("开始加载xml模板",false);
                     this.setInputType(APIConstant.API_RESPONSE_XML);
                     URI xmluri = xmlurl.toURI();
                     File xf = new File(xmluri);
@@ -191,12 +189,12 @@ public abstract class AbstractAPIBaseObject {
      * @param f
      */
     private void loadXml(File f) throws DocumentException {
-        Log.info("加载xml文件 :"+f.getName());
+        Log.info("加载xml文件 :"+f.getName(),false);
         SAXReader reader = new SAXReader();
         reader.setEncoding(detectCharSet(f));
         Document doc = reader.read(f);
         this.setRequestStrfromFile(doc.asXML());
-        Log.info("加载完成");
+        Log.info("加载完成",false);
 
         setFileFields();
     }
@@ -220,7 +218,7 @@ public abstract class AbstractAPIBaseObject {
      * 为标记的file赋值
      */
     protected void setFileFields(){
-        Log.info("标记赋值");
+        Log.info("标记赋值",false);
         Field[] fields = this.getFieldsByAnno(APIAsInPut.class);
         for (Field f: fields) {
             f.setAccessible(true);
@@ -356,14 +354,14 @@ public abstract class AbstractAPIBaseObject {
                 if (APIConstant.API_RESPONSE_XML.equals(this.getInputType())) {
                     setXmlRequest(this.getRequestStrfromFile());
                     if(GlobalSettings.getProperty("requlog.info").equals("true")){
-                        Log.info("待发送的xml报文为："+ this.getRequestStrfromFile());
+                        Log.info("待发送的xml报文为：\n"+ this.getRequestStrfromFile());
                     }
                 }else if (APIConstant.API_RESPONSE_JSON.equals(this.getInputType())) {
                     setJsonRequest(this.getRequestStrfromFile());
                      json = JSON.toJSONString(JSONObject.parseObject(this.getRequestStrfromFile()), SerializerFeature.PrettyFormat,SerializerFeature.WriteMapNullValue,
                             SerializerFeature.WriteDateUseDateFormat);
                     if(GlobalSettings.getProperty("requlog.info").equals("true")){
-                        Log.info("待发送的json报文为：\n"+json);
+                        Log.info("待发送的json报文为：\n" +json);
                     }
                 }
                 if (fileds != null) {
@@ -540,6 +538,7 @@ public abstract class AbstractAPIBaseObject {
     public abstract String getUrl();
     public abstract String getCharSet();
     public abstract String getReturnType();
+    public abstract String getInputType();
 
 
 }

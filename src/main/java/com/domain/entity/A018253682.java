@@ -11,7 +11,13 @@ import com.domain.api.http.RestAPIObject;
 /**
  * Created by pei hao on 2021/9/1.
  */
-public class A018253682 extends HttpAPIObject{
+public class A018253682 extends RestAPIObject{
+
+    private String url;
+
+    public A018253682(String url){
+        this.url = url;
+    }
 
     @APIAsHeader(name = "test")
     public String test = "9898787787";
@@ -34,6 +40,11 @@ public class A018253682 extends HttpAPIObject{
     }
 
     @Override
+    public String getInputType() {
+        return APIConstant.API_Input_Type_JSON;
+    }
+
+    @Override
     public String getCharSet() {
         return APIConstant.API_CHARSET_UTF8;
     }
@@ -45,6 +56,8 @@ public class A018253682 extends HttpAPIObject{
 
     @Override
     public String getSendUri() {
-        return "/db8122608751bfc0a73df8b9e3da74ad/test/api/postjson";
+        return url;
     }
+
+
 }

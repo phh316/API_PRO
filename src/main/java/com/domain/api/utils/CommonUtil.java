@@ -3,6 +3,7 @@ package com.domain.api.utils;
 import com.domain.api.annotation.APIAsQueryString;
 import com.domain.api.core.APIConstant;
 import com.domain.api.core.AbstractAPIBaseObject;
+import com.sun.net.httpserver.HttpsConfigurator;
 import info.monitorenter.cpdetector.io.CodepageDetectorProxy;
 import info.monitorenter.cpdetector.io.ParsingDetector;
 import org.apache.commons.httpclient.HttpClient;
@@ -29,7 +30,7 @@ public class CommonUtil {
      * @return
      */
     public static String detectCharSet(File f){
-        Log.info("获取文件格式: "+f.getName().substring(f.getName().indexOf(".")+1,f.getName().length()));
+        Log.info("获取文件格式: "+f.getName().substring(f.getName().indexOf(".")+1,f.getName().length()),false);
         CodepageDetectorProxy detector = CodepageDetectorProxy.getInstance();
         detector.add(new ParsingDetector(false));
         Charset charset = null;
@@ -38,20 +39,20 @@ public class CommonUtil {
             if(charset!= null){
                 String name = charset.name();
                 if ("void".equals(name)){
-                    Log.info("文件格式为："+ APIConstant.API_CHARSET_UTF8);
+                    Log.info("文件格式为："+ APIConstant.API_CHARSET_UTF8,false);
                     return APIConstant.API_CHARSET_UTF8;
                 }else{
-                    Log.info("文件格式为："+ APIConstant.API_CHARSET_GBK);
+                    Log.info("文件格式为："+ APIConstant.API_CHARSET_GBK,false);
                     return APIConstant.API_CHARSET_GBK;
                 }
             }else {
-                Log.info("文件格式为："+ APIConstant.API_CHARSET_GBK);
+                Log.info("文件格式为："+ APIConstant.API_CHARSET_GBK,false);
                 return APIConstant.API_CHARSET_GBK;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.info("文件格式为："+ APIConstant.API_CHARSET_GBK);
+        Log.info("文件格式为："+ APIConstant.API_CHARSET_GBK,false);
         return APIConstant.API_CHARSET_GBK;
     }
 

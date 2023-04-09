@@ -1,0 +1,43 @@
+{
+    "mappings": [
+        {
+            "request": {
+                "method": "GET",
+				"urlPath": "/api/get"
+            },
+            "response": {
+                "bodyFileName": "/getfile.json",
+                "headers": {
+                    "Content-Type": "charset=UTF-8"
+                },
+                "status": 200
+            }
+        },
+        {
+            "request": {
+                "method": "POST",
+                "url": "/api/postjson"
+            },
+            "response": {
+                "bodyFileName": "/post_json.json",
+                "headers": {
+                    "Content-Type": "application/json;charset=UTF-8"
+                },
+                "status": 200
+            }
+        },
+        {
+            "request": {
+                "method": "POST",
+                "url": "/api/postxml"
+            },
+            "response": {
+                "bodyFileName": "/post_xml.json",
+                "headers": {
+                    "Content-Type": "application/xml;charset=UTF-8"
+                },
+                "status": 200
+            }
+        }
+    ]
+}
